@@ -20,7 +20,10 @@ s3.fill((0, 0, 255))
 
 example_surfs = gif_pygame.GIFPygame([(s1, 1), (s2, 1), (s3, 1)])
 
+clock = pygame.Clock()
+
 while True:
+    clock.tick(60)
     win.fill((0, 0, 0))
     
     # There are 2 ways of rendering the animated img file, the first method is doing "gif.render(surface, (x, y))", the other method is doing "surface.blit(gif.blit_ready(), (x, y))". THE ".blit_ready()" FUNCTION MUST BE CALLED WHEN DOING THE SECOND METHOD
@@ -50,7 +53,7 @@ while True:
                 else:
                     example_surfs.pause() # pauses `example_surfs` if it was unpaused
                     
-    pygame.display.update()
+    pygame.display.flip()
 ```
 
 To recap:
@@ -64,18 +67,17 @@ To render the image you've got 2 options:
 There are other extra functions. The ones showcased in the example code are `img.pause()` and `img.unpause()`.
 
 There are also:
-- `GIFPygame.get_width()`, returns the width of the image
-- `GIFPygame.get_height()`, returns the height of the image
-- `GIFPygame.get_size()`, returns the size of the image
-- `GIFPygame.get_rect()`, returns the rect of the image
-- `GIFPygame.get_surfaces()`, returns a list of all surfaces in the animation, you can also pass in certain indexes
-- `GIFPygame.set_surface()`, replaces some of the surfaces in the animation with newer surfaces
-- `.get_durations()`, returns a list of all durations in the animation, you can also pass in certain indexes
-- `.set_duration()`, replaces some of the durations in the animation with newer durations
-- `.get_datas()`, returns a list of all surfaces and durations in the animation, you can also pass in certain indexes
-- `.set_data()`, replaces some of the surfaces and durations in the animation with newer surfaces and durations
-- `.get_alphas()`, returns a list of that includes the alphas of all surfaces in the animation, you can also pass in certain indexes
-- `.set_alpha()`, replaces all the alphas of surfaces with newer alphas, you can also pass in certain indexes
+- `GIFPygame().get_width()`, returns the width of the image
+- `GIFPygame().get_height()`, returns the height of the image
+- `GIFPygame().get_size()`, returns the size of the image
+- `GIFPygame().get_rect()`, returns the rect of the image
+- `GIFPygame().get_surfaces()`, returns a list of all surfaces in the animation, you can also pass in certain indexes
+- `GIFPygame().get_durations()`, returns a list of all durations in the animation, you can also pass in certain indexes
+- `GIFPygame().get_surfaces()`, returns a list of all surfaces in the animation, you can also pass in certain indexes
+- `GIFPygame().get_durations()`, returns a list of all durations in the animation, you can also pass in certain indexes
+- `GIFPygame().get_datas()`, returns a list of all surfaces and durations in the animation, you can also pass in certain indexes
+- `GIFPygame().get_alphas()`, returns a list of that includes the alphas of all surfaces in the animation, you can also pass in certain indexes
+- `gif_pygame.transform`, a sublibrary for editing the surfaces.
 
 Please use python's `help()` function for more in-depth explanation
 

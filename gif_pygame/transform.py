@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-allows for easy gif tranformation
+allows for easy gif editing
 """
 
 import pygame, warnings
