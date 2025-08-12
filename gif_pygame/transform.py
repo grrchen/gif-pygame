@@ -292,7 +292,8 @@ def surfaces(gif: GIFPygame, surfaces: Iterable[Tuple[pygame.Surface, int]]) -> 
 
         else:
             successful_frames.append(surface)
-            gif.frames[surface[1]][0] = surface[0]
+            frame = gif.frames[surface[1]]
+            gif.frames[surface[1]] = (surface[0], frame[1])
 
     if len(successful_frames) == 0:
         raise IndexError("None of the given frames are in the frames list")
