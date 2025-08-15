@@ -37,7 +37,7 @@ class GIFPygame:
 	"""
 	The class responsible for handling all of the .gif file functions
 	"""
-	def __init__(self, frames: Iterable[Tuple[pygame.Surface, int]], loops: Optional[int]=-1) -> None:
+	def __init__(self, frames: Iterable[Tuple[pygame.Surface, int]], loops: Optional[int]=-1, pause_between_loops: int=None) -> None:
 		"""
 		Creates a `GIFPygame` instance
 
@@ -54,9 +54,14 @@ class GIFPygame:
 		self.paused = False
 		self.loops = [0, loops]
 		self.ended = False
+		self.pause_between_loops = pause_between_loops
+		self._loop_end_time = time.time()
 
 	
 	def _animate(self):
+		if self.pause_between_loops is not None and time.time() - self._loop_end_time < self.pause_between_loops:
+			return
+
 		if self.frame_time == 0:
 			self.frame_time = time.time()
 
@@ -65,7 +70,8 @@ class GIFPygame:
 			self.frame_time = time.time()
 			if self.frame >= len(self.frames)-1:
 				self.loops[0] += 1
-			
+				self._loop_end_time = time.time()
+
 		if self.loops[1] != -1 and self.loops[0] > self.loops[1]:
 			self.ended = True
 			self.pause()
@@ -249,9 +255,9 @@ class GIFPygame:
 		"""
 		Returns a copy of the gif
 		"""
-		return GIFPygame([(frame[0].copy(), frame[1]) for frame in self.frames], self.loops[1])
+		return GIFPygame([(frame[0].copy(), frame[1]) for frame in self.frames], self.loops[1], self.pause_between_loops)
 
-def load(filepath: _FileArg, loops: Optional[int]=-1) -> GIFPygame:
+def load(filepath: _FileArg, loops: Optional[int]=-1, pause_between_loops: int=None) -> GIFPygame:
 	"""
 	Loads the .gif file
 
@@ -269,4 +275,4 @@ def load(filepath: _FileArg, loops: Optional[int]=-1) -> GIFPygame:
 			frames.append([pygame.image.frombytes(gif.tobytes(), gif.size, gif.mode), gif.info["duration"]*.001])
 	gif.close()
 	
-	return GIFPygame(frames, loops)
+	return GIFPygame(frames, loops, pause_between_loops)
