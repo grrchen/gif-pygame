@@ -251,6 +251,10 @@ class GIFPygame:
 		"""
 		return GIFPygame([(frame[0].copy(), frame[1]) for frame in self.frames], self.loops[1])
 
+	def convert_alpha(self):
+		return GIFPygame([(frame[0].convert_alpha(), frame[1]) for frame in self.frames], self.loops[1])
+
+
 def load(filepath: _FileArg, loops: Optional[int]=-1) -> GIFPygame:
 	"""
 	Loads the .gif file
